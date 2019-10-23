@@ -1,11 +1,7 @@
 <?php
-
 include_once( 'functions.php' );
-
+//Welcome    
 render_header();
 
-sleep(1);
-render_menu_costumer();
-
-sleep(1);
-render_option_menu();
+//Run the application
+app();
