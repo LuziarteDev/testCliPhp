@@ -1,4 +1,6 @@
-<?php 
+<?php
+
+//Executando Função principal
 function app(){
 
     cls();
@@ -11,10 +13,12 @@ function app(){
 
 }
 
+//Função para agilizar a limpeza de tela
 function cls(){
     ( 'Linux' == PHP_OS) ? system('clear') : system('cls');
 }
 
+//Renderiza a parte inicial
 function render_header(){
     printf(" %s ", base64_decode('ICAgICAgICAgICAgICAgICAgICAgIC5fX19fX19fX19fXy4gX19fX19fXyAgICAgX19fX19fXy5fX19fX19fX19fXy4gX19fX19fXyAKfCAgICAgICAgICAgfHwgICBfX19ffCAgIC8gICAgICAgfCAgICAgICAgICAgfHwgICBfX19ffApgLS0tfCAgfC0tLS1gfCAgfF9fICAgICB8ICAgKC0tLS1gLS0tfCAgfC0tLS1gfCAgfF9fICAgCiAgICB8ICB8ICAgICB8ICAgX198ICAgICBcICAgXCAgICAgICB8ICB8ICAgICB8ICAgX198ICAKICAgIHwgIHwgICAgIHwgIHxfX19fLi0tLS0pICAgfCAgICAgIHwgIHwgICAgIHwgIHxfX19fIAogICAgfF9ffCAgICAgfF9fX19fX198X19fX19fXy8gICAgICAgfF9ffCAgICAgfF9fX19fX198CiAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAKICAgICAgIC5fX19fX18gICAgICAgICAgX19fICAgICAgIF9fICAgX19fX19fX18gIAogICAgICAgfCAgIF8gIFwgICAgICAgIC8gICBcICAgICB8ICB8IHwgICAgICAgLyAgCiAgICAgICB8ICB8XykgIHwgICAgICAvICBeICBcICAgIHwgIHwgYC0tLS8gIC8gICAKICAgICAgIHwgICAgICAvICAgICAgLyAgL19cICBcICAgfCAgfCAgICAvICAvICAgIAogICAgICAgfCAgfFwgIFwtLS0tLi8gIF9fX19fICBcICB8ICB8ICAgLyAgLy0tLS0uCiAgICAgICB8IF98IGAuX19fX18vX18vICAgICBcX19cIHxfX3wgIC9fX19fX19fX3wKICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgICAgIA==') );
     sleep(2);
@@ -44,6 +48,7 @@ function render_menu_customer(){
     echo $menu;
 }
 
+//lista os planos
 function list_plans( $id = false ){
     $plans = json_decode( file_get_contents('planos.json') );
     if($id){
@@ -163,7 +168,7 @@ function new_customer(){
     }
     insert_customer( $data );
 }
-
+//Valida a idade
 function age_validate( $age ){
     if( $age < 0 || $age > 120 || $age != is_numeric($age) ){
         echo "Idade inválida\n";
@@ -171,6 +176,7 @@ function age_validate( $age ){
     }
 }
 
+//Retorna todos os planos e le qual quer os detalhes, retornando o total do plano e o total do preço de cada beneficiario
 function get_total_plan(){
     echo "\nSelecione qual plano deseja conferir o preço total: \n";
     $option = readline();
@@ -190,6 +196,7 @@ function get_total_plan(){
 
 }
 
+//Retorna os preços de acordo com o plano e a faixa de idade
 function get_price_plan( $id_codigo_plano, $age ){
     //Ler todos os beneficiarios da conta passado pelo ID e adiciona em $count_customer a quantidade de pessoas existente no plano
     $customers = json_decode( file_get_contents('beneficiarios.json') );
@@ -219,7 +226,7 @@ function get_price_plan( $id_codigo_plano, $age ){
     }
 
 }
-
+//Retorna o preço total e todos os beneficiarios
 function get_price_total_customer( $id_codigo_plano ){
     $customers = json_decode( file_get_contents('beneficiarios.json') );
     $price_total = 0;
